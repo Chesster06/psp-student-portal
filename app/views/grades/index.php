@@ -18,6 +18,14 @@ include __DIR__ . '/../layouts/header.php';
     </div>
 </div>
 
+<?php if (!empty($_SESSION['success'])): ?>
+    <div class="alert alert-success py-2 px-3 small border-0 rounded-3 mb-4 d-flex align-items-center gap-2">
+        <i class="bi bi-check-circle-fill"></i>
+        <div><?= htmlspecialchars($_SESSION['success']) ?></div>
+    </div>
+    <?php unset($_SESSION['success']); ?>
+<?php endif; ?>
+
 <?php if ($role === 'lecturer'): ?>
     <div class="card theme-card shadow-sm border-0">
         <div class="card-header py-3 bg-white border-bottom d-flex justify-content-between align-items-center flex-wrap gap-2">
@@ -153,7 +161,7 @@ include __DIR__ . '/../layouts/header.php';
     </div>
 <?php endif; ?>
 
-<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" data-bs-backdrop="false" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-danger text-white">
