@@ -68,7 +68,7 @@ include __DIR__ . '/../layouts/header.php';
                                     <td class="font-monospace text-secondary"><?= htmlspecialchars($row['ic']) ?></td>
                                     <td class="text-center font-monospace fw-bold text-dark"><?= htmlspecialchars($row['marks']) ?></td>
                                     <td class="text-center fw-bold text-purple"><?= htmlspecialchars($row['grade']) ?></td>
-                                    <td class="text-center text-success fw-medium small"><?= htmlspecialchars($row['status']) ?></td>
+                                    <td class="text-center <?= ($row['status'] === 'LULUS') ? 'text-success' : 'text-danger' ?> fw-medium small"><?= htmlspecialchars($row['status']) ?></td>
                                     <td class="text-end pe-4">
                                         <a href="index.php?page=grades-edit&id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-purple me-1">
                                             <i class="bi bi-pencil-square me-1"></i>Edit
