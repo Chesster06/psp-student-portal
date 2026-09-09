@@ -16,8 +16,13 @@ class Student {
         return $result ?: null;
     }
 
+    // 1. UPDATE PASSWORD (Guna Hashing & Prepared Statement)
     public function updatePassword($studentId, $hashedPassword) {
-        return false;
+        $stmt = $this->db->prepare("UPDATE students SET password = :password WHERE id = :id");
+        return $stmt->execute([
+            ':password' => $hashedPassword,
+            ':id' => $studentId
+        ]);
     }
 
     public function getAllGrades() {
@@ -52,16 +57,31 @@ class Student {
         return $row ?: null;
     }
 
+    // 2. CREATE GRADE (Tambah Rekod Pelajar/Gred Baru)
     public function createGrade($name, $ic, $marks) {
-        return false;
+        $stmt = $this->db->prepare("INSERT INTO student_grades (name, ic, marks) VALUES (:name, :ic, :marks)");
+        return $stmt->execute([
+            ':name' => $name,
+            ':ic' => $ic,
+            ':marks' => $marks
+        ]);
     }
 
+    // 3. UPDATE GRADE (Kemaskini Rekod Pelajar/Gred)
     public function updateGrade($id, $name, $ic, $marks) {
-        return false;
+        $stmt = $this->db->prepare("UPDATE student_grades SET name = :name, ic = :ic, marks = :marks WHERE id = :id");
+        return $stmt->execute([
+            ':name' => $name,
+            ':ic' => $ic,
+            ':marks' => $marks,
+            ':id' => $id
+        ]);
     }
 
+    // 4. DELETE GRADE (Padam Rekod Pelajar)
     public function deleteGrade($id) {
-        return false;
+        $stmt = $this->db->prepare("DELETE FROM student_grades WHERE id = :id");
+        return $stmt->execute([':id' => $id]);
     }
 
     private function calculateGrade($marks) {
