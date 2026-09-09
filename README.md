@@ -20,6 +20,19 @@ Sistem portal pengurusan gred dan profil pelajar berasaskan seni bina **PHP MVC*
 
 ---
 
+## Paparan Antara Muka (Screenshots)
+
+### 1. Halaman Utama Portal (Landing Page)
+![Halaman Utama Portal](screenshots/01_landing_page.png)
+
+### 2. Log Masuk Akaun Siswa (Authentication)
+![Log Masuk Akaun](screenshots/02_login_page.png)
+
+### 3. Profil Pelajar (Student Dashboard)
+![Profil Pelajar](screenshots/03_student_profile.png)
+
+---
+
 ## Teknologi yang Digunakan
 - **Backend**: PHP 8.x (Custom MVC Architecture, PDO Prepared Statements)
 - **Pangkalan Data**: MySQL (InnoDB Engine, Foreign Key Constraints)
@@ -40,6 +53,7 @@ mini-project-1/
 ├── public/
 │   ├── assets/          # CSS, JS, Images
 │   └── index.php        # Front Controller / Routing
+├── screenshots/         # Tangkap layar paparan sistem
 └── index.php            # Redirect ke public/index.php
 ```
 
