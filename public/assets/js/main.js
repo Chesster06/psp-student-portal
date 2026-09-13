@@ -80,9 +80,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-const modal = new bootstrap.Modal(
-    document.getElementById('deleteConfirmModal'),
-    {
-        backdrop: false
-    }
-);
