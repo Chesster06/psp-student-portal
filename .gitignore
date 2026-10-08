@@ -1,3 +1,5 @@
 .DS_Store
 Thumbs.db
 *.log
+public/uploads/profile_pictures/*
+!public/uploads/profile_pictures/.gitkeep
