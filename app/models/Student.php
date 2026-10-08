@@ -16,7 +16,28 @@ class Student {
         return $result ?: null;
     }
 
-    // 1. UPDATE PASSWORD (Guna Hashing & Prepared Statement)
+    public function findById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM students WHERE id = :id LIMIT 1");
+        $stmt->execute([':id' => $id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
+    }
+
+    public function updateProfilePicture($studentId, $filename) {
+        $stmt = $this->db->prepare("UPDATE students SET profile_picture = :profile_picture WHERE id = :id");
+        return $stmt->execute([
+            ':profile_picture' => $filename,
+            ':id' => $studentId
+        ]);
+    }
+
+    public function removeProfilePicture($studentId) {
+        $stmt = $this->db->prepare("UPDATE students SET profile_picture = NULL WHERE id = :id");
+        return $stmt->execute([
+            ':id' => $studentId
+        ]);
+    }
+
     public function updatePassword($studentId, $hashedPassword) {
         $stmt = $this->db->prepare("UPDATE students SET password = :password WHERE id = :id");
         return $stmt->execute([
@@ -57,7 +78,6 @@ class Student {
         return $row ?: null;
     }
 
-    // 2. CREATE GRADE (Tambah Rekod Pelajar/Gred Baru)
     public function createGrade($name, $ic, $marks) {
         $stmt = $this->db->prepare("INSERT INTO student_grades (name, ic, marks) VALUES (:name, :ic, :marks)");
         return $stmt->execute([
@@ -67,7 +87,6 @@ class Student {
         ]);
     }
 
-    // 3. UPDATE GRADE (Kemaskini Rekod Pelajar/Gred)
     public function updateGrade($id, $name, $ic, $marks) {
         $stmt = $this->db->prepare("UPDATE student_grades SET name = :name, ic = :ic, marks = :marks WHERE id = :id");
         return $stmt->execute([
@@ -78,7 +97,6 @@ class Student {
         ]);
     }
 
-    // 4. DELETE GRADE (Padam Rekod Pelajar)
     public function deleteGrade($id) {
         $stmt = $this->db->prepare("DELETE FROM student_grades WHERE id = :id");
         return $stmt->execute([':id' => $id]);

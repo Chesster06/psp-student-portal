@@ -45,6 +45,7 @@ class AuthController {
         $_SESSION['student_name'] = $user['name'];
         $_SESSION['student_program'] = $user['program'];
         $_SESSION['user_role'] = $user['role'];
+        $_SESSION['student_profile_picture'] = $user['profile_picture'] ?? null;
 
         header('Location: index.php?page=profile');
         exit;
