@@ -1,10 +1,21 @@
 <?php
 
-$dbHost = getenv('DB_HOST') ?: 'localhost';
-$dbUser = getenv('DB_USER') ?: 'root';
-$dbPass = getenv('DB_PASS') !== false ? getenv('DB_PASS') : '';
-$dbName = getenv('DB_NAME') ?: 'psp_portal';
-$dbPort = getenv('DB_PORT') ?: '3307';
+$isLive = !in_array($_SERVER['HTTP_HOST'] ?? 'localhost', ['localhost', '127.0.0.1'], true)
+          && strpos($_SERVER['HTTP_HOST'] ?? '', 'localhost:') !== 0;
+
+if ($isLive) {
+    $dbHost = getenv('DB_HOST') ?: 'sql309.infinityfree.com';
+    $dbUser = getenv('DB_USER') ?: 'if0_43120448';
+    $dbPass = getenv('DB_PASS') !== false ? getenv('DB_PASS') : 'PSPPortal123';
+    $dbName = getenv('DB_NAME') ?: 'if0_43120448_psp_portal';
+    $dbPort = getenv('DB_PORT') ?: '3306';
+} else {
+    $dbHost = getenv('DB_HOST') ?: 'localhost';
+    $dbUser = getenv('DB_USER') ?: 'root';
+    $dbPass = getenv('DB_PASS') !== false ? getenv('DB_PASS') : '';
+    $dbName = getenv('DB_NAME') ?: 'psp_portal';
+    $dbPort = getenv('DB_PORT') ?: '3307';
+}
 
 define('DB_HOST', $dbHost);
 define('DB_USER', $dbUser);

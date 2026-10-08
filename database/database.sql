@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `psp_portal` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `psp_portal`;
+-- CREATE DATABASE IF NOT EXISTS `psp_portal` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- USE `psp_portal`;
 
 CREATE TABLE IF NOT EXISTS `students` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,4 +30,3 @@ INSERT INTO `students` (`nric`, `name`, `program`, `role`, `password`) VALUES
 ('820615075521', 'MOHAMMAD NOOR BIN IBRAHIM', 'Jabatan Teknologi Maklumat & Komunikasi', 'lecturer', '$2y$10$xRZ36jyTUxcAm4QKNgcDOu8PjEwRJ0eVYjPjznvecngdfVeY6mdru')
 ON DUPLICATE KEY UPDATE `name` = VALUES(`name`), `role` = VALUES(`role`), `program` = VALUES(`program`);
 
--- ALTER TABLE `students` ADD COLUMN IF NOT EXISTS `profile_picture` VARCHAR(255) NULL DEFAULT NULL AFTER `password`;
