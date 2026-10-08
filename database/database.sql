@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS `students` (
     `program` VARCHAR(100) NOT NULL,
     `role` ENUM('student', 'lecturer') NOT NULL DEFAULT 'student',
     `password` VARCHAR(255) NOT NULL,
+    `profile_picture` VARCHAR(255) NULL DEFAULT NULL,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
@@ -29,4 +30,4 @@ INSERT INTO `students` (`nric`, `name`, `program`, `role`, `password`) VALUES
 ('820615075521', 'MOHAMMAD NOOR BIN IBRAHIM', 'Jabatan Teknologi Maklumat & Komunikasi', 'lecturer', '$2y$10$xRZ36jyTUxcAm4QKNgcDOu8PjEwRJ0eVYjPjznvecngdfVeY6mdru')
 ON DUPLICATE KEY UPDATE `name` = VALUES(`name`), `role` = VALUES(`role`), `program` = VALUES(`program`);
 
-
+-- ALTER TABLE `students` ADD COLUMN IF NOT EXISTS `profile_picture` VARCHAR(255) NULL DEFAULT NULL AFTER `password`;
