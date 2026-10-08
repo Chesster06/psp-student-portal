@@ -60,7 +60,15 @@ $activeRole = $_SESSION['user_role'] ?? 'student';
         <div class="admin-sidebar-footer">
             <div class="admin-user-card" data-tooltip="<?= htmlspecialchars($_SESSION['student_name'] ?? 'Pengguna') ?>">
                 <div class="admin-user-avatar">
-                    <i class="bi <?= ($activeRole === 'lecturer') ? 'bi-person-workspace' : 'bi-person-fill' ?>"></i>
+                    <?php
+                    $sidebarPic = $_SESSION['student_profile_picture'] ?? null;
+                    $sidebarPicPath = $sidebarPic ? __DIR__ . '/../../../public/uploads/profile_pictures/' . $sidebarPic : null;
+                    if ($sidebarPic && file_exists($sidebarPicPath)):
+                    ?>
+                        <img src="uploads/profile_pictures/<?= htmlspecialchars($sidebarPic) ?>" alt="Avatar" class="admin-avatar-img">
+                    <?php else: ?>
+                        <i class="bi <?= ($activeRole === 'lecturer') ? 'bi-person-workspace' : 'bi-person-fill' ?>"></i>
+                    <?php endif; ?>
                 </div>
                 <div class="admin-user-info">
                     <div class="admin-user-name"><?= htmlspecialchars($_SESSION['student_name'] ?? 'Pengguna') ?></div>

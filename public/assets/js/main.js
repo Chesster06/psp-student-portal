@@ -27,6 +27,91 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    document.querySelectorAll('.modal').forEach(modalEl => {
+        modalEl.addEventListener('click', (e) => {
+            if (e.target === modalEl) {
+                const instance = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                instance.hide();
+            }
+        });
+
+        modalEl.querySelectorAll('[data-bs-dismiss="modal"]').forEach(closeBtn => {
+            closeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const instance = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                instance.hide();
+            });
+        });
+
+        modalEl.addEventListener('hidden.bs.modal', () => {
+            document.querySelectorAll('.modal-backdrop').forEach(bd => bd.remove());
+            document.body.classList.remove('modal-open');
+            document.body.style.removeProperty('overflow');
+            document.body.style.removeProperty('padding-right');
+        });
+    });
+
+    const avatarInput = document.getElementById('profile_picture_input');
+    const avatarPreviewImg = document.getElementById('avatarPreviewImg');
+    const avatarPlaceholder = document.getElementById('avatarPreviewPlaceholder');
+    const previewFilenameText = document.getElementById('previewFilenameText');
+    const validationMsg = document.getElementById('fileUploadValidationMsg');
+    const submitAvatarBtn = document.getElementById('submitAvatarBtn');
+
+    if (avatarInput) {
+        avatarInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (!file) {
+                return;
+            }
+
+            const allowedExtensions = ['jpg', 'jpeg', 'png'];
+            const fileExt = file.name.split('.').pop().toLowerCase();
+            const maxSizeBytes = 2 * 1024 * 1024; // 2MB
+
+            if (!allowedExtensions.includes(fileExt)) {
+                if (validationMsg) {
+                    validationMsg.textContent = 'Format fail tidak sah! Hanya format .jpg, .jpeg, dan .png sahaja dibenarkan.';
+                    validationMsg.classList.remove('d-none');
+                }
+                if (submitAvatarBtn) submitAvatarBtn.disabled = true;
+                this.value = '';
+                return;
+            }
+
+            if (file.size > maxSizeBytes) {
+                if (validationMsg) {
+                    validationMsg.textContent = 'Saiz fail melebihi 2MB (' + (file.size / (1024 * 1024)).toFixed(2) + 'MB). Sila pilih gambar yang lebih kecil.';
+                    validationMsg.classList.remove('d-none');
+                }
+                if (submitAvatarBtn) submitAvatarBtn.disabled = true;
+                this.value = '';
+                return;
+            }
+
+            if (validationMsg) {
+                validationMsg.classList.add('d-none');
+                validationMsg.textContent = '';
+            }
+            if (submitAvatarBtn) submitAvatarBtn.disabled = false;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                if (avatarPreviewImg) {
+                    avatarPreviewImg.src = e.target.result;
+                    avatarPreviewImg.style.display = 'block';
+                }
+                if (avatarPlaceholder) {
+                    avatarPlaceholder.classList.add('d-none');
+                }
+                if (previewFilenameText) {
+                    previewFilenameText.textContent = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (!prefersReducedMotion && typeof Lenis !== 'undefined') {
