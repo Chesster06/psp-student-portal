@@ -30,6 +30,16 @@ switch ($page) {
         (new ProfileController())->index();
         break;
 
+    case 'upload-profile-picture':
+    case 'profile-upload':
+        (new ProfileController())->uploadProfilePicture();
+        break;
+
+    case 'delete-profile-picture':
+    case 'profile-delete-picture':
+        (new ProfileController())->deleteProfilePicture();
+        break;
+
     case 'settings':
         (new ProfileController())->settings();
         break;
